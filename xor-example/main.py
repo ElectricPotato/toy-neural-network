@@ -62,6 +62,18 @@ def network_results(network, testcases):
         outputs.append(testcase_output)
     return outputs
     
+def print_summary(network, testcases):
+    print("Best scoring network found:")
+    network.show()
+
+    outputs = network_results(network, testcases)
+    score = network_score(network, testcases)
+    expected_outputs = [testcase_expected_output for testcase_input, testcase_expected_output in testcases]
+    print("Best scoring network outputs:")
+    print(outputs)
+    print("Expected outputs:")
+    print(expected_outputs)
+    print(f"Score: {score}")
 
 def main():
 
@@ -111,16 +123,7 @@ def main():
         if(i%1000==0):print(f"Best scoring network so far: {best_score}")
 
     print()
-    print("Best scoring network found:")
-    best_network.show()
-
-    outputs = network_results(best_network, testcases_XOR)
-    expected_outputs = [testcase_expected_output for testcase_input, testcase_expected_output in testcases_XOR]
-    print("Best scoring network outputs:")
-    print(outputs)
-    print("Expected outputs:")
-    print(expected_outputs)
-    print(f"Score: {best_score}")
+    print_summary(best_network, testcases_XOR)
 
     #manually selected weights and biases
     #score is close to 0 (performs well)
@@ -134,17 +137,8 @@ def main():
             [np.matrix("0.0; 0.0"), np.matrix("0.0")] #layer 1
         )
     )
-        
-    score = network_score(xor_network, testcases_XOR)
-    xor_network.show()
-
-    outputs = network_results(xor_network, testcases_XOR)
-    expected_outputs = [testcase_expected_output for testcase_input, testcase_expected_output in testcases_XOR]
-    print("Best scoring network outputs:")
-    print(outputs)
-    print("Expected outputs:")
-    print(expected_outputs)
-    print(f"Score: {score}")
+    
+    print_summary(xor_network, testcases_XOR)
     
 
     
